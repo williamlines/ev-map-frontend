@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./App.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import OriginDestinationBox from "./components/OriginDestinationBox";
+import { ChakraProvider } from "@chakra-ui/react";
 const token = require("./token.js");
 
 mapboxgl.accessToken = token;
@@ -22,9 +24,10 @@ function App() {
   });
 
   return (
-    <div>
+    <ChakraProvider>
+      <OriginDestinationBox></OriginDestinationBox>
       <div ref={mapContainer} className="map-container" />
-    </div>
+    </ChakraProvider>
   );
 }
 
