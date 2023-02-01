@@ -27,17 +27,9 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Box
-        position="absolute"
-        left={0}
-        top={0}
-        h="calc(100vh)"
-        w="100%"
-        z="-1"
-        bg="green"
-      >
+      <Box position="absolute" left={0} top={0} h="calc(100vh)" w="100%" z="-1">
         <OriginDestinationBox></OriginDestinationBox>
-        <div ref={mapContainer} className="map-container" />
+        <div z="-1" ref={mapContainer} className="map-container" />
       </Box>
     </ChakraProvider>
   );
