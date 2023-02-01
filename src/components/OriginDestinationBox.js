@@ -1,5 +1,11 @@
+import { Box } from "@chakra-ui/react";
+
 const OriginDestinationBox = () => {
-  return <div>some text</div>;
+  return (
+    <Box p={4} borderRadius="lg" bgColor="tomato">
+      some text
+    </Box>
+  );
 };
 
 export default OriginDestinationBox;
