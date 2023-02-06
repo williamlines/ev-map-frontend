@@ -14,6 +14,7 @@ function App() {
   const [lng, setLng] = useState(-70.9);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9);
+  const [clickLngLat, setClickLngLat] = useState(null);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -23,6 +24,13 @@ function App() {
       center: [lng, lat],
       zoom: zoom,
     });
+  });
+
+  useEffect(() => {
+    map.current.on("click", (e) => {
+      setClickLngLat(e.lngLat);
+    });
+    console.log(`lngLat is ${clickLngLat}`);
   });
 
   return (
