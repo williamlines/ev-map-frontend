@@ -39,17 +39,23 @@ function App() {
   useEffect(() => {
     map.current.on("click", (e) => {
       setClickLngLat(e.lngLat);
-      if (originSelect) {
-        setOrigin(clickLngLat);
-        setOriginSelect(false);
-      }
-      if (destinationSelect) {
-        setDestination(clickLngLat);
-        setDestinationSelect(false);
-      }
     });
     console.log(`lngLat is ${clickLngLat}`);
   });
+
+  useEffect(() => {
+    if (originSelect) {
+      setOrigin(clickLngLat);
+      setOriginSelect(false);
+    }
+  }, [clickLngLat, originSelect]);
+
+  useEffect(() => {
+    if (destinationSelect) {
+      setDestination(clickLngLat);
+      setDestinationSelect(false);
+    }
+  }, [clickLngLat, destinationSelect]);
 
   const handleOriginButton = () => {
     setOriginSelect(true);
@@ -69,20 +75,18 @@ function App() {
   const OriginDestinationBox = () => {
     return (
       <Box p={4} borderRadius="lg" bgColor="tomato">
+        <Text> {`Selected: ${clickLngLat}`} </Text>
         <HStack>
           <Button colorScheme="blue" onClick={handleOriginButton}>
-            Select Origin
+            Set as Origin
           </Button>
           <Text> {`Origin is ${origin}`} </Text>
         </HStack>
         <HStack>
           <Button colorScheme="green" onClick={handleDestinationButton}>
-            Select Destination
+            Set as Destination
           </Button>
           <Text> {`Destination is ${destination}`} </Text>
-          <Button colorScheme="yellow" onClick={seeStates}>
-            See States Debug
-          </Button>
         </HStack>
       </Box>
     );
