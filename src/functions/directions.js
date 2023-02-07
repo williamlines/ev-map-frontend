@@ -7,5 +7,4 @@ async function getDirections(origin, destination) {
   console.log(data.message.routes[0].geometry.coordinates);
   return;
 }
-// getDirections("-84.518641%2C39.134270", "-84.512023%2C39.102779");
-module.exports = getDirections()
+module.exports = getDirections();
