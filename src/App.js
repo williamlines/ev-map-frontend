@@ -1,9 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./App.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import OriginDestinationBox from "./components/OriginDestinationBox";
-
-import { ChakraProvider, Box } from "@chakra-ui/react";
+// import OriginDestinationBox from "./components/OriginDestinationBox";
+import {
+  ChakraProvider,
+  Box,
+  Button,
+  ButtonGroup,
+  HStack,
+  Text,
+} from "@chakra-ui/react";
 
 const token = require("./token.js");
 
@@ -15,6 +21,10 @@ function App() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9);
   const [clickLngLat, setClickLngLat] = useState(null);
+  const [originSelect, setOriginSelect] = useState(false);
+  const [origin, setOrigin] = useState(null);
+  const [destinationSelect, setDestinationSelect] = useState(false);
+  const [destination, setDestination] = useState(null);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -29,9 +39,54 @@ function App() {
   useEffect(() => {
     map.current.on("click", (e) => {
       setClickLngLat(e.lngLat);
+      if (originSelect) {
+        setOrigin(clickLngLat);
+        setOriginSelect(false);
+      }
+      if (destinationSelect) {
+        setDestination(clickLngLat);
+        setDestinationSelect(false);
+      }
     });
     console.log(`lngLat is ${clickLngLat}`);
   });
+
+  const handleOriginButton = () => {
+    setOriginSelect(true);
+    setDestinationSelect(false);
+  };
+
+  const handleDestinationButton = () => {
+    setDestinationSelect(true);
+    setOriginSelect(false);
+  };
+
+  const seeStates = () => {
+    console.log(`originSelect is ${originSelect}`);
+    console.log(`destinationSelect is ${destinationSelect}`);
+  };
+
+  const OriginDestinationBox = () => {
+    return (
+      <Box p={4} borderRadius="lg" bgColor="tomato">
+        <HStack>
+          <Button colorScheme="blue" onClick={handleOriginButton}>
+            Select Origin
+          </Button>
+          <Text> {`Origin is ${origin}`} </Text>
+        </HStack>
+        <HStack>
+          <Button colorScheme="green" onClick={handleDestinationButton}>
+            Select Destination
+          </Button>
+          <Text> {`Destination is ${destination}`} </Text>
+          <Button colorScheme="yellow" onClick={seeStates}>
+            See States Debug
+          </Button>
+        </HStack>
+      </Box>
+    );
+  };
 
   return (
     <ChakraProvider>
