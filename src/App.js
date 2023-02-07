@@ -11,6 +11,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+const formatLngLat = require("./functions/formatLngLat");
+
 const token = require("./token.js");
 
 mapboxgl.accessToken = token;
@@ -57,6 +59,15 @@ function App() {
     }
   }, [clickLngLat, destinationSelect]);
 
+  const handleDirections = () => {
+    console.log(`Origin: ${origin}`);
+    console.log(`Destination: ${destination}`);
+    const routeOrigin = formatLngLat(origin);
+    const routeDestination = formatLngLat(destination);
+    console.log(`Route Origin is :${routeOrigin}`);
+    console.log(`Route Destination is :${routeDestination}`);
+  };
+
   const handleOriginButton = () => {
     setOriginSelect(true);
     setDestinationSelect(false);
@@ -65,11 +76,6 @@ function App() {
   const handleDestinationButton = () => {
     setDestinationSelect(true);
     setOriginSelect(false);
-  };
-
-  const seeStates = () => {
-    console.log(`originSelect is ${originSelect}`);
-    console.log(`destinationSelect is ${destinationSelect}`);
   };
 
   const OriginDestinationBox = () => {
@@ -88,6 +94,9 @@ function App() {
           </Button>
           <Text> {`Destination is ${destination}`} </Text>
         </HStack>
+        <Button colorScheme="yellow" onClick={handleDirections}>
+          Plot Route
+        </Button>
       </Box>
     );
   };
