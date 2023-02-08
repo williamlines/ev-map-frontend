@@ -60,12 +60,14 @@ function App() {
   }, [clickLngLat, destinationSelect]);
 
   const handleDirections = () => {
-    console.log(`Origin: ${origin}`);
-    console.log(`Destination: ${destination}`);
-    const routeOrigin = formatLngLat(origin);
-    const routeDestination = formatLngLat(destination);
-    console.log(`Route Origin is :${routeOrigin}`);
-    console.log(`Route Destination is :${routeDestination}`);
+    const originString = origin.toString();
+    const destinationString = destination.toString();
+
+    const routeOrigin = formatLngLat(originString);
+    const routeDestination = formatLngLat(destinationString);
+
+    console.log(`Route Origin is : ${routeOrigin}`);
+    console.log(`Route Destination is : ${routeDestination}`);
   };
 
   const handleOriginButton = () => {
