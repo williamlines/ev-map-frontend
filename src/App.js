@@ -78,8 +78,7 @@ function App() {
     const geoJSON = formatGeoJSON(route);
     console.log("geoJson is:");
     console.log(geoJSON);
-
-    
+  
   };
 
   const handleOriginButton = () => {
