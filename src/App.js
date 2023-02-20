@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 const formatLngLat = require("./functions/formatLngLat");
+const getDirections = require("./functions/directions");
 
 const token = require("./token.js");
 
@@ -68,6 +69,9 @@ function App() {
 
     console.log(`Route Origin is : ${routeOrigin}`);
     console.log(`Route Destination is : ${routeDestination}`);
+
+    const route = getDirections(routeOrigin, routeDestination);
+    console.log(route);
   };
 
   const handleOriginButton = () => {
@@ -96,7 +100,12 @@ function App() {
           </Button>
           <Text> {`Destination is ${destination}`} </Text>
         </HStack>
-        <Button colorScheme="yellow" onClick={handleDirections}>
+        <Button
+          colorScheme="yellow"
+          onClick={() => {
+            handleDirections();
+          }}
+        >
           Plot Route
         </Button>
       </Box>
