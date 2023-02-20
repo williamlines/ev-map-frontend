@@ -13,6 +13,7 @@ import {
 
 const formatLngLat = require("./functions/formatLngLat");
 const getDirections = require("./functions/directions");
+const formatGeoJSON = require("./functions/formatGeoJSON");
 
 const token = require("./token.js");
 
@@ -60,7 +61,7 @@ function App() {
     }
   }, [clickLngLat, destinationSelect]);
 
-  const handleDirections = () => {
+  const handleDirections = async () => {
     const originString = origin.toString();
     const destinationString = destination.toString();
 
@@ -70,8 +71,15 @@ function App() {
     console.log(`Route Origin is : ${routeOrigin}`);
     console.log(`Route Destination is : ${routeDestination}`);
 
-    const route = getDirections(routeOrigin, routeDestination);
+    const route = await getDirections(routeOrigin, routeDestination);
+    console.log("route is:");
     console.log(route);
+
+    const geoJSON = formatGeoJSON(route);
+    console.log("geoJson is:");
+    console.log(geoJSON);
+
+    
   };
 
   const handleOriginButton = () => {
