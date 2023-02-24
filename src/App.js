@@ -29,6 +29,7 @@ function App() {
   const [origin, setOrigin] = useState(null);
   const [destinationSelect, setDestinationSelect] = useState(false);
   const [destination, setDestination] = useState(null);
+  // const [route, setRoute] = useState(null);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -78,7 +79,28 @@ function App() {
     const geoJSON = formatGeoJSON(route);
     console.log("geoJson is:");
     console.log(geoJSON);
-  
+
+    if (map.current.getSource("route")) {
+      map.current.getSource("route").setData(geoJSON);
+    } else {
+      map.current.addLayer({
+        id: "route",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: geoJSON,
+        },
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#3887be",
+          "line-width": 5,
+          "line-opacity": 0.75,
+        },
+      });
+    }
   };
 
   const handleOriginButton = () => {
